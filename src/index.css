@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, sans-serif;
+  color: #101827;
+  background: #e2e8f0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #3b9bea;
+  outline-offset: 2px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.sheet-in {
+  animation: sheet-in 0.22s ease-out;
+}
+
+.float {
+  animation: float-y 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-in,
+  .float {
+    animation: none;
+  }
+}
+
+/* Exact px math from Figma Splash 1 -> Splash 2 (440x956 frame). Each panel
+   keeps a constant 22.9deg rotation; only its box (left/top/width/height) and
+   color are interpolated, matching what Figma's Smart Animate does. */
+@keyframes wipe-a {
+  0% {
+    left: 126.08px;
+    top: 28.56px;
+    width: 542.904px;
+    height: 1086.906px;
+    background-color: #828282;
+  }
+  100% {
+    left: 618.23px;
+    top: 126.48px;
+    width: 464px;
+    height: 1010px;
+    background-color: #0a2d40;
+  }
+}
+
+@keyframes wipe-b {
+  0% {
+    left: -242.75px;
+    top: -130.98px;
+    width: 484.138px;
+    height: 1044.969px;
+    background-color: #bcbcbc;
+  }
+  100% {
+    left: -482.73px;
+    top: -504.72px;
+    width: 463px;
+    height: 1010px;
+    background-color: #195f83;
+  }
+}
+
+@keyframes bg-crossfade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes logo-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2113);
+  }
+  50% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2113);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Figma's Prototype panel: Smart Animate, easing "Slow", duration 1200ms,
+   after a 5ms delay (treated as immediate). */
+.wipe-a {
+  animation: wipe-a 1200ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+.wipe-b {
+  animation: wipe-b 1200ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+.bg-crossfade {
+  animation: bg-crossfade 1200ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+.logo-in {
+  animation: logo-in 1200ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+/* Onboarding 1's entrance: Splash 2 -> onboarding 1, Smart animate, Slow
+   easing, 1000ms, after a 10ms delay (treated as immediate). The two ribbon
+   panels don't move between these two frames, so only the onboarding
+   content needs to fade in. */
+@keyframes onboarding-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.onboarding-in {
+  animation: onboarding-in 1000ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+@keyframes onboarding-logo-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.onboarding-logo-fade {
+  animation: onboarding-logo-fade 1000ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-logo-fade {
+    animation: none;
+  }
+}
+
+@keyframes onboarding-bg-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.onboarding-bg-fade {
+  animation: onboarding-bg-fade 1000ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-in,
+  .onboarding-bg-fade {
+    animation: none;
+  }
+}
+
+/* Onboarding 3 -> log in ("Get Started"/"Skip"): the ribbon panels are
+   pixel-identical on every one of these screens, so only the content
+   cross-fades. Figma's exact duration/easing for this specific hop wasn't
+   available, so this reuses the same 1000ms "Slow" timing as the other
+   transitions for consistency. */
+@keyframes auth-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.auth-in {
+  animation: auth-in 1000ms cubic-bezier(0.45, 0, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-in {
+    animation: none;
+  }
+}
+
+/* Gradual crossfade between onboarding slides (auto-advance, dot taps, and
+   Continue) instead of an instant cut. */
+@keyframes slide-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.slide-fade {
+  animation: slide-fade 450ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-fade {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wipe-a,
+  .wipe-b,
+  .bg-crossfade,
+  .logo-in {
+    animation: none;
+  }
+}

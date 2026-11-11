@@ -1,0 +1,12 @@
+{
+  "name": "StudyFlow",
+  "short_name": "StudyFlow",
+  "description": "Study focus tracker for EBSU students",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0F1A2E",
+  "theme_color": "#0F1A2E",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
